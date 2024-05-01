@@ -1,0 +1,16 @@
+.container {
+	display: block;
+}
+.container h3 {
+	text-align: center;
+}
+.container h3 span {
+	text-align: center;
+}
+.wrapper {
+	display: flex;
+	justify-content: center;
+}
+.summary {
+	font-style: italic;
+}

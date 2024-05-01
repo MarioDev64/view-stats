@@ -1,0 +1,47 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.container .today {
+}
+
+.container h1 {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+.container h1 span {
+	color: #b2b2b2;
+}
+
+.container button {
+	padding: 12px 24px;
+	font-size: 1rem;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;
+	background-color: #007bff;
+	color: white;
+	transition: background-color 0.3s ease;
+	margin-bottom: 16px;
+}
+
+.container button:hover {
+	background-color: #0056b3;
+}
+
+.cardContainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 16px;
+}
+
+@media (min-width: 768px) {
+	.cardContainer {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}

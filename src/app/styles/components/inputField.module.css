@@ -1,0 +1,25 @@
+.inputContainer {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 8px;
+	transition: border-bottom-color 1s ease; /* Transición para el borde inferior */
+	width: 100%;
+	max-width: 365px;
+}
+
+.inputContainer:focus-within {
+	border-bottom-color: #007bff;
+}
+
+.inputContainer input {
+	border: none;
+	outline: none;
+	width: 100%;
+	font-size: 16px;
+	background: transparent;
+}
+
+/* Estilo para el borde inferior cuando está enfocado */
+.inputContainer.focused {
+	border-bottom: 2px solid #007bff;
+}
