@@ -37,7 +37,7 @@ export default function Home() {
 	const getAddressesByCity = async () => {
 		try {
 			const response = await fetch(
-				`http://api.openweathermap.org/geo/1.0/direct?q=${searchQuery}&limit=5&appid=${OPENWEATHERMAP_API_KEY}`
+				`https://api.openweathermap.org/geo/1.0/direct?q=${searchQuery}&limit=5&appid=${OPENWEATHERMAP_API_KEY}`
 			);
 
 			if (response.ok) {
