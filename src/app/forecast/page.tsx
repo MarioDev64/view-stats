@@ -36,7 +36,7 @@ export default function ForecastPage() {
 		setIsLoading(true);
 		try {
 			const weatherResponse = await fetch(
-				`https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly&appid=${OPENWEATHERMAP_API_KEY}`
+				`https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=current,minutely,hourly&appid=${OPENWEATHERMAP_API_KEY}`
 			);
 
 			if (weatherResponse.ok) {

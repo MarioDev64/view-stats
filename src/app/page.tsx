@@ -12,11 +12,15 @@ import { determineLocationType } from './lib/utils';
 export default function Home() {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [cityData, setCityData] = useState<any[]>([]);
+	const [notRecordsFoundError, setNotRecordsFoundError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
 	const handleSearch = async () => {
+		//removing not records found error state to clean ui
+		setNotRecordsFoundError(false);
+
 		//handling if searchQuery is empty or not provided
 		if (!searchQuery || searchQuery.trim().length === 0) {
 			setErrorMessage('Please type a city name or zipcode.');
@@ -42,8 +46,8 @@ export default function Home() {
 
 			if (response.ok) {
 				const data = await response.json();
-				console.log('getAddressesByCity', data);
 				setCityData(data);
+				data.length === 0 && setNotRecordsFoundError(true);
 			} else {
 				console.error('Failed to fetch city data');
 			}
@@ -66,9 +70,13 @@ export default function Home() {
 				let tempCityData = [];
 				tempCityData.push(data);
 				tempCityData[0].state = tempCityData[0].zip;
-				console.log('getAddressesByZipCode', tempCityData);
 				setCityData(tempCityData);
 			} else {
+				// handling zip code not found
+				if(response.status === 404) {
+					setNotRecordsFoundError(true);
+					setCityData([]);
+				}
 				console.error('Failed to fetch city data');
 			}
 		} catch (error) {
@@ -95,8 +103,10 @@ export default function Home() {
 				<InputField
 					placeholder="Enter city or ZIP code"
 					value={searchQuery}
-					onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-						setSearchQuery(e.target.value)
+					onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+							setNotRecordsFoundError(false);
+							setSearchQuery(e.target.value)
+						}
 					}
 					onKeyPress={handleKeyPress}
 				/>
@@ -108,6 +118,8 @@ export default function Home() {
 			{isLoading && <Loading />}
 
 			<div className={styles.cityCards}>
+				
+				{notRecordsFoundError && (<label>No records found with the city name or zipcode <strong>{searchQuery}</strong></label>)}
 				{cityData.map((city: any, index) => (
 					<CityCard
 						key={`${city.name}-${city.country}-${index}`}
